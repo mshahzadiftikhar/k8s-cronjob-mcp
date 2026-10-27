@@ -81,13 +81,6 @@ Or to any MCP client config:
 
 To run from source instead: `npm install && npm run build`, then use `node /absolute/path/to/dist/index.js` as the command.
 
-Docker (stdio, so run with `-i` and mount a kubeconfig read-only):
-
-```bash
-docker build -t k8s-cronjob-mcp .
-docker run -i --rm -v ~/.kube/config:/home/node/.kube/config:ro k8s-cronjob-mcp
-```
-
 To give the server its own least-privilege identity, apply [deploy/rbac.yaml](deploy/rbac.yaml) and build a kubeconfig from the `k8s-cronjob-mcp` ServiceAccount (see [scripts/sa-kubeconfig.sh](scripts/sa-kubeconfig.sh) for an example).
 
 ### Get more out of it: raise history limits

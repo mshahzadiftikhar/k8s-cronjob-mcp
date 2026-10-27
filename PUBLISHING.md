@@ -10,7 +10,7 @@ The package is named `k8s-cronjob-mcp` in `package.json`, `bin`, the README and 
 npm view k8s-cronjob-mcp name   # E404 means it is available
 ```
 
-If you switch to a scoped name such as `@your-npm-username/k8s-cronjob-mcp` (which cannot be squatted and shows who made it), update `package.json` `name`, the README commands and the Dockerfile tag, and add `"publishConfig": { "access": "public" }` because scoped packages default to private.
+If you switch to a scoped name such as `@your-npm-username/k8s-cronjob-mcp` (which cannot be squatted and shows who made it), update `package.json` `name`, and the README commands, and add `"publishConfig": { "access": "public" }` because scoped packages default to private.
 
 ## 1. `package.json` check
 
@@ -80,6 +80,5 @@ Use a new minor version when you add a tool or an input, and a major version whe
 
 ## Optional
 
-- **Docker image.** Tag and push (`docker build -t <registry>/<name>:1.0.0 .`) if you want users to run it as a container.
 - **MCP directories.** Some MCP registries and directories list community servers; check their submission steps once the package is live.
 - **CI publishing.** For automated releases, publish from CI with an npm automation token and `npm publish --provenance`, which links the package to its source build.
