@@ -23,7 +23,7 @@ export interface ServerOptions {
 }
 
 export function createServer(reader: ClusterReader, options: ServerOptions = {}): McpServer {
-  const server = new McpServer({ name: "k8s-cronjob-mcp", version: "0.1.0" });
+  const server = new McpServer({ name: "k8s-cronjob-mcp", version: "1.0.0" });
   const setup = options.setup;
   const clientName = () => server.server.getClientVersion()?.name;
 

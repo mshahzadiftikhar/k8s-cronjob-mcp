@@ -2,41 +2,31 @@
 
 Publishing is public and permanent: a version number can never be reused or fully removed (it can only be deprecated). Work through this in order, and stop at the dry run if anything looks wrong.
 
-## 0. Decide the name (once)
+## 0. Confirm the name
 
-`package.json` currently says `k8-cronjob-mcp`, while the README and examples use `k8s-cronjob-mcp`. Pick one and use it everywhere (`package.json` `name`, `bin`, README commands, Dockerfile tag). A scoped name such as `@your-npm-username/k8s-cronjob-mcp` cannot be squatted and shows who made it.
-
-Check it is free:
+The package is named `k8s-cronjob-mcp` in `package.json`, `bin`, the README and the examples below. Check it is still free before the first publish:
 
 ```bash
-npm view <name> name   # E404 means it is available
+npm view k8s-cronjob-mcp name   # E404 means it is available
 ```
 
-## 1. One-time `package.json` fixes
+If you switch to a scoped name such as `@your-npm-username/k8s-cronjob-mcp` (which cannot be squatted and shows who made it), update `package.json` `name`, the README commands and the Dockerfile tag, and add `"publishConfig": { "access": "public" }` because scoped packages default to private.
 
-Add these fields. Without `files`, the tarball includes tests, scripts and demo manifests.
+## 1. `package.json` check
 
-```json
-{
-  "description": "Read-only MCP server that finds Kubernetes CronJobs failing silently",
-  "keywords": ["mcp", "model-context-protocol", "kubernetes", "k8s", "cronjob", "monitoring"],
-  "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/<you>/<repo>.git" },
-  "files": ["dist", "deploy/rbac.yaml", "README.md", "LICENSE"],
-  "publishConfig": { "access": "public" }
-}
-```
+These are already set; confirm they are still right:
 
-- Add a `LICENSE` file matching the `license` field.
-- `publishConfig.access` is required for scoped names (they default to private); it is harmless otherwise.
-- `bin` must point at `dist/index.js`, which already starts with `#!/usr/bin/env node`.
+- `description`, `keywords`, `license` (MIT, matching the `LICENSE` file) and `author`.
+- `repository`, `homepage` and `bugs` point at `https://github.com/mshahzadiftikhar/k8s-cronjob-mcp`.
+- `files` is `["dist", "deploy", "README.md", "LICENSE"]`. Without it the tarball would include tests, scripts and demo manifests.
+- `bin` points at `dist/index.js`, which starts with `#!/usr/bin/env node`.
 
 ## 2. Verify before publishing
 
 ```bash
 npm run typecheck && npm test      # unit tests
 npm run demo:up && npm run check:rbac && npm run test:integration   # optional but recommended
-npm pack --dry-run                 # confirm only dist/, rbac.yaml, README, LICENSE are listed
+npm pack --dry-run                 # confirm only dist/, deploy/rbac.yaml, README, LICENSE and package.json are listed
 ```
 
 Test the real tarball the way users will run it:
@@ -48,7 +38,7 @@ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocol
   | (cat; sleep 3) | npx -y ./<name>-<version>.tgz
 ```
 
-You should see all four tools listed. Delete the `.tgz` afterwards.
+You should see all eight tools listed (`check_setup`, `list_cronjobs`, `get_cronjob_status`, `get_run_history`, `find_silent_failures`, `list_recent_failures`, `get_failure_details`, `list_active_runs`). Delete the `.tgz` afterwards.
 
 ## 3. Log in
 
@@ -62,11 +52,10 @@ Enable two-factor authentication on the npm account (use "authorization and publ
 ## 4. Version and publish
 
 ```bash
-npm version 0.1.0 --no-git-tag-version   # or patch / minor / major for later releases
 npm publish                              # `prepublishOnly` rebuilds dist/ first
 ```
 
-First release of a scoped package: `npm publish --access public`.
+First release of a scoped package: `npm publish --access public` (not needed for the unscoped `k8s-cronjob-mcp`).
 
 If it goes wrong within 72 hours, `npm unpublish <name>@<version>` is possible; after that, use `npm deprecate <name>@<version> "reason"` and publish a fixed version.
 
@@ -78,7 +67,7 @@ claude mcp add k8s-cronjobs --env K8S_CONTEXT=<your-context> -- npx -y <name>
 claude mcp list
 ```
 
-Pin a version in shared configs: `npx -y <name>@0.1.0`.
+Pin a version in shared configs: `npx -y <name>@1.0.0`.
 
 ## 6. Releasing updates
 
@@ -91,6 +80,6 @@ Use a new minor version when you add a tool or an input, and a major version whe
 
 ## Optional
 
-- **Docker image.** Tag and push (`docker build -t <registry>/<name>:0.1.0 .`) if you want users to run it as a container.
+- **Docker image.** Tag and push (`docker build -t <registry>/<name>:1.0.0 .`) if you want users to run it as a container.
 - **MCP directories.** Some MCP registries and directories list community servers; check their submission steps once the package is live.
 - **CI publishing.** For automated releases, publish from CI with an npm automation token and `npm publish --provenance`, which links the package to its source build.

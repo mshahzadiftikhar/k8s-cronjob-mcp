@@ -6,7 +6,7 @@ import { createServer } from "./server.js";
 import { hasFatal, loadSetup, startupLog } from "./setup.js";
 import { runChecks } from "./check.js";
 
-const VERSION = "0.1.0";
+const VERSION = "1.0.0";
 const args = process.argv.slice(2);
 
 if (args.includes("--version") || args.includes("-v")) {

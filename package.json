@@ -1,6 +1,6 @@
 {
   "name": "k8s-cronjob-mcp",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Read-only MCP server for monitoring Kubernetes CronJobs",
   "keywords": [
     "mcp",
@@ -16,11 +16,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<your-github-handle>/k8s-cronjob-mcp.git"
+    "url": "git+https://github.com/mshahzadiftikhar/k8s-cronjob-mcp.git"
   },
-  "homepage": "https://github.com/<your-github-handle>/k8s-cronjob-mcp#readme",
+  "homepage": "https://github.com/mshahzadiftikhar/k8s-cronjob-mcp#readme",
   "bugs": {
-    "url": "https://github.com/<your-github-handle>/k8s-cronjob-mcp/issues"
+    "url": "https://github.com/mshahzadiftikhar/k8s-cronjob-mcp/issues"
   },
   "files": [
     "dist",
