@@ -157,9 +157,3 @@ See [PUBLISHING.md](PUBLISHING.md) for the npm release checklist.
 - Only retained Jobs are visible, so consecutive-failure counts are capped by `failedJobsHistoryLimit`. A CronJob with a history limit of 0 leaves no evidence; the tools say so rather than reporting it as healthy.
 - Trends need at least 4 successful runs (see [raise history limits](#get-more-out-of-it-raise-history-limits)). The overrun check works from 1 finished run but is more reliable with more.
 - `list_recent_failures` only sees failed Jobs Kubernetes still retains; failures removed by history limits or `ttlSecondsAfterFinished` are gone.
-
-## Roadmap
-
-- A namespaced Role/RoleBinding option in `deploy/`.
-- Optional Prometheus source for run history beyond the retained Jobs.
-- `compare_runs`, an HTTP transport and a Helm chart.
