@@ -1,0 +1,61 @@
+{
+  "name": "k8s-cronjob-mcp",
+  "version": "0.1.0",
+  "description": "Read-only MCP server for monitoring Kubernetes CronJobs",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "kubernetes",
+    "k8s",
+    "cronjob",
+    "monitoring",
+    "sre",
+    "claude"
+  ],
+  "author": "Shahzad Iftikhar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<your-github-handle>/k8s-cronjob-mcp.git"
+  },
+  "homepage": "https://github.com/<your-github-handle>/k8s-cronjob-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/<your-github-handle>/k8s-cronjob-mcp/issues"
+  },
+  "files": [
+    "dist",
+    "deploy",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "bin": {
+    "k8s-cronjob-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "demo:up": "scripts/demo-up.sh",
+    "demo:down": "scripts/demo-down.sh",
+    "check:rbac": "scripts/check-rbac.sh",
+    "test:integration": "npm run build && scripts/sa-kubeconfig.sh && node scripts/integration.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@kubernetes/client-node": "^2.0.0",
+    "@modelcontextprotocol/sdk": "^1.32.0",
+    "cron-parser": "^5.10.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
+}
