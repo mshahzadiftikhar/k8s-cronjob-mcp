@@ -37,7 +37,7 @@ General-purpose Kubernetes MCP servers expose CronJobs as just another resource 
 This is deliberate and enforced in two independent places:
 
 1. **Code.** The only Kubernetes calls are `get`/`list`/log reads. The `ClusterReader` interface in [src/k8s/client.ts](src/k8s/client.ts) has no create/patch/delete/exec method for a tool to call.
-2. **RBAC.** [deploy/rbac.yaml](deploy/rbac.yaml) grants `get`/`list`/`watch` on exactly `cronjobs`, `jobs`, `pods`, `pods/log` and `events`. Nothing else: no secrets, no `pods/exec`, no write verbs. `npm run check:rbac` asserts this against a real cluster (52 checks: reads allowed, every write denied).
+2. **RBAC.** [deploy/rbac.yaml](deploy/rbac.yaml) grants `get`/`list`/`watch` on exactly `cronjobs`, `jobs`, `pods`, `pods/log` and `events`. Nothing else: no secrets, no `pods/exec`, no write verbs. `npm run check:rbac` asserts this against a real cluster (47 checks: reads allowed, every write denied).
 
 Also worth knowing:
 
