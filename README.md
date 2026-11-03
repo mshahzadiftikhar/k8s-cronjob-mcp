@@ -47,7 +47,7 @@ Also worth knowing:
 
 ## Install and use
 
-Requires Node 20+. No install step is needed; `npx` fetches it on demand.
+Requires Node 22.19+. No install step is needed; `npx` fetches it on demand.
 
 Add it to Claude Code (stdio):
 
@@ -89,7 +89,7 @@ Build an installable MCP Bundle (`.mcpb`) with:
 npm run extension:pack
 ```
 
-Open `dist/k8s-cronjob-mcp.mcpb` with Claude Desktop to install it. During setup, choose a kubeconfig file and optionally pin a context, restrict the server to a comma-separated namespace allowlist, or set the default schedule timezone. The bundle includes the compiled server and production dependencies; building it requires Node 20+ and network access to download the MCPB packer. When using an exec-based kubeconfig login, make sure its helper is available on Claude Desktop's `PATH`.
+Open `dist/k8s-cronjob-mcp.mcpb` with Claude Desktop to install it. During setup, choose a kubeconfig file and optionally pin a context, restrict the server to a comma-separated namespace allowlist, or set the default schedule timezone. The bundle includes the compiled server and production dependencies; building it requires Node 22.19+ and network access to download the MCPB packer. When using an exec-based kubeconfig login, make sure its helper is available on Claude Desktop's `PATH`.
 
 The namespace allowlist is enforced by this server, not by Kubernetes RBAC. For a cluster-enforced namespace boundary, bind namespaced Roles and RoleBindings as described above.
 
