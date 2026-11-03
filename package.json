@@ -1,6 +1,6 @@
 {
   "name": "k8s-cronjob-mcp",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Read-only MCP server for monitoring Kubernetes CronJobs",
   "keywords": [
     "mcp",
