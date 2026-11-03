@@ -1,0 +1,78 @@
+{
+  "manifest_version": "0.3",
+  "name": "k8s-cronjob-mcp",
+  "display_name": "Kubernetes CronJob Triage",
+  "version": "1.0.0",
+  "description": "Read-only Kubernetes CronJob monitoring and failure triage.",
+  "long_description": "Inspect CronJob health, schedules, run history, active runs, and synthesized failure causes through a read-only MCP server. Requires a kubeconfig with permission to read CronJobs, Jobs, Pods, Pod logs, and Events.",
+  "author": {
+    "name": "Shahzad Iftikhar"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mshahzadiftikhar/k8s-cronjob-mcp.git"
+  },
+  "homepage": "https://github.com/mshahzadiftikhar/k8s-cronjob-mcp",
+  "documentation": "https://github.com/mshahzadiftikhar/k8s-cronjob-mcp#readme",
+  "support": "https://github.com/mshahzadiftikhar/k8s-cronjob-mcp/issues",
+  "keywords": [
+    "kubernetes",
+    "cronjob",
+    "monitoring",
+    "triage",
+    "read-only"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "KUBECONFIG": "${user_config.kubeconfig}",
+        "K8S_CONTEXT": "${user_config.context}",
+        "ALLOWED_NAMESPACES": "${user_config.allowed_namespaces}",
+        "CRON_DEFAULT_TIMEZONE": "${user_config.default_timezone}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "user_config": {
+    "kubeconfig": {
+      "type": "file",
+      "title": "Kubeconfig file",
+      "description": "Choose the kubeconfig Claude Desktop should use.",
+      "required": true,
+      "default": "${HOME}/.kube/config"
+    },
+    "context": {
+      "type": "string",
+      "title": "Kubernetes context",
+      "description": "Pin the context name from `kubectl config get-contexts` to avoid following a changing current-context.",
+      "default": "",
+      "required": false
+    },
+    "allowed_namespaces": {
+      "type": "string",
+      "title": "Allowed namespaces",
+      "description": "Optional comma-separated namespace allowlist, for example batch,reports.",
+      "default": "",
+      "required": false
+    },
+    "default_timezone": {
+      "type": "string",
+      "title": "Default schedule timezone",
+      "description": "IANA timezone for CronJobs without spec.timeZone. Usually UTC.",
+      "default": "UTC",
+      "required": false
+    }
+  }
+}

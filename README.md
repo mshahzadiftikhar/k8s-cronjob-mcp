@@ -81,6 +81,18 @@ Or to any MCP client config:
 
 To run from source instead: `npm install && npm run build`, then use `node /absolute/path/to/dist/index.js` as the command.
 
+### Claude Desktop extension
+
+Build an installable MCP Bundle (`.mcpb`) with:
+
+```bash
+npm run extension:pack
+```
+
+Open `dist/k8s-cronjob-mcp.mcpb` with Claude Desktop to install it. During setup, choose a kubeconfig file and optionally pin a context, restrict the server to a comma-separated namespace allowlist, or set the default schedule timezone. The bundle includes the compiled server and production dependencies; building it requires Node 20+ and network access to download the MCPB packer. When using an exec-based kubeconfig login, make sure its helper is available on Claude Desktop's `PATH`.
+
+The namespace allowlist is enforced by this server, not by Kubernetes RBAC. For a cluster-enforced namespace boundary, bind namespaced Roles and RoleBindings as described above.
+
 To give the server its own least-privilege identity, apply [deploy/rbac.yaml](deploy/rbac.yaml) and build a kubeconfig from the `k8s-cronjob-mcp` ServiceAccount (see [scripts/sa-kubeconfig.sh](scripts/sa-kubeconfig.sh) for an example).
 
 ### Get more out of it: raise history limits
